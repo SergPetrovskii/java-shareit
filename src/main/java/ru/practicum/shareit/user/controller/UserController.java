@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user;
+package ru.practicum.shareit.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -38,7 +38,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public UserDto findUser(@PathVariable Long userId) {
-        return UserMapper.toItemDto(userService.findUser(userId));
+        return UserMapper.toItemDto(userService.findUserById(userId));
     }
 
     @DeleteMapping("/{userId}")
