@@ -1,4 +1,4 @@
-package ru.practicum.shareit;
+package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.*;
@@ -38,18 +38,18 @@ public class ItemApplicationTest {
     @BeforeEach
     public void before() {
         user1 = userService.createUser(User.builder()
-                .name("Викинг")
-                .email("vikssssing@mail.com")
+                .name("User1")
+                .email("user1@mail.com")
                 .build());
 
         user2 = userService.createUser(User.builder()
-                .name("Викинг")
-                .email("ssssing@mail.com")
+                .name("User2")
+                .email("user2@mail.com")
                 .build());
 
-        item = itemService.createItem(user1.getId(), Item.builder().name("оружие")
+        item = itemService.createItem(user1.getId(), Item.builder().name("Item")
                 .available(true)
-                .description("могучее")
+                .description("Description of item")
                 .build());
 
         booking = bookingService.postBooking(user2.getId(),  Booking.builder()
@@ -71,18 +71,15 @@ public class ItemApplicationTest {
         ItemWithBookingAndComment newItem = itemService.findItem(user1.getId(), item.getId());
         Assertions.assertNotNull(newItem);
 
-        List<ItemWithBookingAndComment> listItem = itemService.findAllItemByUser(user2.getId());
-        Assertions.assertNotNull(listItem);
+        Item updItem = itemService.updateItem(user1.getId(), item.getId(), Item.builder().name("Item 1").build());
+        Assertions.assertNotNull(updItem);
 
-        Item upItem = itemService.updateItem(user1.getId(), item.getId(), Item.builder().name("огромное оружие").build());
-        Assertions.assertNotNull(upItem);
-
-        List<ItemSearch> newList = itemService.search(user1.getId(), "оружие");
+        List<ItemSearch> newList = itemService.search(user1.getId(), "Item",1,2);
         Assertions.assertNotNull(newList);
 
         bookingService.approvedBooking(user1.getId(), booking.getId(), true);
 
-        Comment comment = itemService.createComment(user2.getId(), item.getId(), Comment.builder().text("все хорошо").build());
+        Comment comment = itemService.createComment(user2.getId(), item.getId(), Comment.builder().text("OK").build());
         Assertions.assertNotNull(comment);
     }
 }

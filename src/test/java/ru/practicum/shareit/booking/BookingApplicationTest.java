@@ -1,4 +1,4 @@
-package ru.practicum.shareit;
+package ru.practicum.shareit.booking;
 
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
@@ -71,10 +71,10 @@ public class BookingApplicationTest {
 
         Booking booking2 = bookingService.approvedBooking(user1.getId(), booking.getId(), true);
 
-        List<BookingSearch> list1 = bookingService.findListBooking(user2.getId(), State.ALL);
+        List<BookingSearch> list1 = bookingService.findListBooking(user2.getId(), State.ALL,1,1);
         Assertions.assertNotNull(list1);
 
-        List<BookingSearch> list2 = bookingService.findListOwnerBooking(user1.getId(), State.ALL);
+        List<BookingSearch> list2 = bookingService.findListOwnerBooking(user1.getId(), State.ALL,1,1);
         Assertions.assertNotNull(list2);
     }
 }
