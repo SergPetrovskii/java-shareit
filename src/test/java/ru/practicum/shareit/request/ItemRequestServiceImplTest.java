@@ -117,6 +117,6 @@ public class ItemRequestServiceImplTest {
 
         when(userRepository.existsById(userId)).thenReturn(false);
 
-        assertThrows(EntityNotFoundException.class, () ->  itemRequestService.findItemRequest(userId, itemRequestId));
+        assertThrows(EntityNotFoundException.class, () -> itemRequestService.findItemRequest(userId, itemRequestId));
     }
 }

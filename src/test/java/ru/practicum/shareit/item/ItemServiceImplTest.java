@@ -16,7 +16,6 @@ import ru.practicum.shareit.booking.model.SmallBooking;
 import ru.practicum.shareit.booking.model.Status;
 import ru.practicum.shareit.exception.CommentException;
 import ru.practicum.shareit.exception.EntityNotFoundException;
-import ru.practicum.shareit.item.service.ItemServiceImpl;
 import ru.practicum.shareit.item.dao.CommentRepository;
 import ru.practicum.shareit.item.dao.ItemRepository;
 import ru.practicum.shareit.item.dto.CommentDto;
@@ -27,6 +26,7 @@ import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.CommentReceiving;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.model.ItemWithBookingAndComment;
+import ru.practicum.shareit.item.service.ItemServiceImpl;
 import ru.practicum.shareit.user.dao.UserRepository;
 import ru.practicum.shareit.user.model.User;
 

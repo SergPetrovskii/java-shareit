@@ -1,16 +1,19 @@
 package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.service.BookingService;
-import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.item.dto.ItemSearch;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.model.ItemWithBookingAndComment;
+import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -52,7 +55,7 @@ public class ItemApplicationTest {
                 .description("Description of item")
                 .build());
 
-        booking = bookingService.postBooking(user2.getId(),  Booking.builder()
+        booking = bookingService.postBooking(user2.getId(), Booking.builder()
                 .item(item)
                 .start(LocalDateTime.now())
                 .finish(LocalDateTime.now().plusNanos(1))
@@ -74,7 +77,7 @@ public class ItemApplicationTest {
         Item updItem = itemService.updateItem(user1.getId(), item.getId(), Item.builder().name("Item 1").build());
         Assertions.assertNotNull(updItem);
 
-        List<ItemSearch> newList = itemService.search(user1.getId(), "Item",1,2);
+        List<ItemSearch> newList = itemService.search(user1.getId(), "Item", 1, 2);
         Assertions.assertNotNull(newList);
 
         bookingService.approvedBooking(user1.getId(), booking.getId(), true);

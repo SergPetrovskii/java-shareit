@@ -43,8 +43,8 @@ public class ItemRequestController {
 
     @GetMapping("/all")
     public List<ItemRequestWithItemsDto> findListRequest(@RequestHeader(HEADER) @Min(0) long userId,
-                                                         @Min(0) @RequestParam(defaultValue = "0")  int from,
-                                                         @Min(1) @RequestParam(defaultValue = "10")  int size) {
+                                                         @Min(0) @RequestParam(defaultValue = "0") int from,
+                                                         @Min(1) @RequestParam(defaultValue = "10") int size) {
         log.info("GET request for find list of all requests from user with id = " + userId);
         return RequestMapper.toListRequestWithItemsDto(itemRequestService.findListRequest(userId, from, size));
     }

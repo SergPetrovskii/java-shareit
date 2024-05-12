@@ -16,7 +16,8 @@ import ru.practicum.shareit.request.model.ItemRequestWithItems;
 import ru.practicum.shareit.user.dao.UserRepository;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service

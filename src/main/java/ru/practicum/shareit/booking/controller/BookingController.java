@@ -55,8 +55,8 @@ public class BookingController {
     @GetMapping
     public List<BookingDto> findListBooking(@RequestHeader(HEADER) @Min(0) final long userId,
                                             @RequestParam(defaultValue = "ALL") State state,
-                                            @RequestParam(defaultValue = "0") @Min(0)  int from,
-                                            @RequestParam(defaultValue = "10") @Min(1)  int size) {
+                                            @RequestParam(defaultValue = "0") @Min(0) int from,
+                                            @RequestParam(defaultValue = "10") @Min(1) int size) {
         List<BookingSearch> listBooking = bookingService.findListBooking(userId, state, from, size);
         log.info("GET request for findListBooking with state = " + state + " from user with id = " + userId);
         return BookingMapper.fromBookingSearchToDtoList(listBooking);
@@ -65,8 +65,8 @@ public class BookingController {
     @GetMapping("/owner")
     public List<BookingDto> findOwnerBooking(@RequestHeader(HEADER) @Min(0) final long userId,
                                              @RequestParam(defaultValue = "ALL") State state,
-                                             @RequestParam(defaultValue = "0") @Min(0)  int from,
-                                             @RequestParam(defaultValue = "10") @Min(1)  int size) {
+                                             @RequestParam(defaultValue = "0") @Min(0) int from,
+                                             @RequestParam(defaultValue = "10") @Min(1) int size) {
         List<BookingSearch> listBooking = bookingService.findListOwnerBooking(userId, state, from, size);
         log.info("GET request for findOwnerBooking with state = " + state + " from user with id = " + userId);
         return BookingMapper.fromBookingSearchToDtoList(listBooking);
