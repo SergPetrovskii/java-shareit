@@ -8,6 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Getter
 @Setter
 @Builder
@@ -34,5 +35,5 @@ public class Item {
     private User owner;
 
     @Column(name = "request")
-    private Long request;
+    private Long requestId;
 }

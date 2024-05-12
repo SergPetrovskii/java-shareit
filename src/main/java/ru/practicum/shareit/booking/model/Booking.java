@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @Data
 @Builder
+@ToString
 public class Booking {
 
     @Id
