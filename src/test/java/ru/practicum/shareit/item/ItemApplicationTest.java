@@ -1,16 +1,19 @@
-package ru.practicum.shareit;
+package ru.practicum.shareit.item;
 
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.service.BookingService;
-import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.item.dto.ItemSearch;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.model.ItemWithBookingAndComment;
+import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.service.UserService;
 
@@ -38,21 +41,21 @@ public class ItemApplicationTest {
     @BeforeEach
     public void before() {
         user1 = userService.createUser(User.builder()
-                .name("Викинг")
-                .email("vikssssing@mail.com")
+                .name("User1")
+                .email("user1@mail.com")
                 .build());
 
         user2 = userService.createUser(User.builder()
-                .name("Викинг")
-                .email("ssssing@mail.com")
+                .name("User2")
+                .email("user2@mail.com")
                 .build());
 
-        item = itemService.createItem(user1.getId(), Item.builder().name("оружие")
+        item = itemService.createItem(user1.getId(), Item.builder().name("Item")
                 .available(true)
-                .description("могучее")
+                .description("Description of item")
                 .build());
 
-        booking = bookingService.postBooking(user2.getId(),  Booking.builder()
+        booking = bookingService.postBooking(user2.getId(), Booking.builder()
                 .item(item)
                 .start(LocalDateTime.now())
                 .finish(LocalDateTime.now().plusNanos(1))
@@ -71,18 +74,15 @@ public class ItemApplicationTest {
         ItemWithBookingAndComment newItem = itemService.findItem(user1.getId(), item.getId());
         Assertions.assertNotNull(newItem);
 
-        List<ItemWithBookingAndComment> listItem = itemService.findAllItemByUser(user2.getId());
-        Assertions.assertNotNull(listItem);
+        Item updItem = itemService.updateItem(user1.getId(), item.getId(), Item.builder().name("Item 1").build());
+        Assertions.assertNotNull(updItem);
 
-        Item upItem = itemService.updateItem(user1.getId(), item.getId(), Item.builder().name("огромное оружие").build());
-        Assertions.assertNotNull(upItem);
-
-        List<ItemSearch> newList = itemService.search(user1.getId(), "оружие");
+        List<ItemSearch> newList = itemService.search(user1.getId(), "Item", 1, 2);
         Assertions.assertNotNull(newList);
 
         bookingService.approvedBooking(user1.getId(), booking.getId(), true);
 
-        Comment comment = itemService.createComment(user2.getId(), item.getId(), Comment.builder().text("все хорошо").build());
+        Comment comment = itemService.createComment(user2.getId(), item.getId(), Comment.builder().text("OK").build());
         Assertions.assertNotNull(comment);
     }
 }
