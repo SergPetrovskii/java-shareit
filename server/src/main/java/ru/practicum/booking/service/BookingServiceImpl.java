@@ -51,7 +51,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking approvedBooking(Long userId, Long bookingId, Boolean answer) {
         boolean isBookingExist = bookingRepository.existsByItemOwnerIdOrBookerId(userId, userId);
-        if (isBookingExist == false) {
+        if (!isBookingExist) {
             throw new AvailableException("Booking is not available");
         }
         Booking booking = bookingRepository.findByIdAndItemOwnerId(bookingId, userId)
@@ -59,7 +59,7 @@ public class BookingServiceImpl implements BookingService {
         if (!booking.getStatus().equals(Status.WAITING)) {
             throw new AvailableException("Item can't be approved");
         }
-        if (answer == true) {
+        if (answer) {
             booking.setStatus(Status.APPROVED);
         } else {
             booking.setStatus(Status.REJECTED);
@@ -91,7 +91,7 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByBookerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new IllegalArgumentException("Incorrect request");
+                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 
@@ -113,7 +113,7 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByItemOwnerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new IllegalArgumentException("Incorrect request");
+                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 }
