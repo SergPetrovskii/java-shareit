@@ -113,7 +113,7 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByItemOwnerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new EntityNotFoundException("Incorrect request");
+                throw new IllegalArgumentException("Incorrect request");
         }
     }
 }

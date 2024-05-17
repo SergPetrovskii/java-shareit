@@ -34,7 +34,7 @@ public class HandlerException {
         return new ErrorResponseException("Bad Request", e.getMessage());
     }
 
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponseException statusError(final Throwable e) {
         log.debug("Get status 500 Internal Server Error {}", e.getMessage(), e);
