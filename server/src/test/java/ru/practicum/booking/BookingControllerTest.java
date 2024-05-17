@@ -1,5 +1,6 @@
 package ru.practicum.booking;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -86,6 +87,7 @@ public class BookingControllerTest {
         assertEquals(booking1, bookingDto);
     }
 
+    @SneakyThrows
     @Test
     void findListBooking() {
         long userId = 1L;
@@ -98,6 +100,7 @@ public class BookingControllerTest {
         assertEquals(listBooking, listBooking1);
     }
 
+    @SneakyThrows
     @Test
     void findOwnerBooking() {
         long userId = 1L;

@@ -1,6 +1,7 @@
 package ru.practicum.booking;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,6 +64,7 @@ public class BookingApplicationTest {
         userService.deleteUser(user2.getId());
     }
 
+    @SneakyThrows
     @Test
     public void test() {
 

@@ -1,5 +1,6 @@
 package ru.practicum.booking;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -146,6 +147,7 @@ public class BookingServiceImplTest {
         assertNotNull(booking1);
     }
 
+    @SneakyThrows
     @Test
     void findListBooking() {
         long userId = 1L;
@@ -196,6 +198,7 @@ public class BookingServiceImplTest {
                 bookingService.findListBooking(userId, State.valueOf("Error"), from, size));
     }
 
+    @SneakyThrows
     @Test
     void findListOwnerBooking() {
         long userId = 1L;

@@ -3,6 +3,7 @@ package ru.practicum.booking.service;
 import ru.practicum.booking.dto.BookingSearch;
 import ru.practicum.booking.model.Booking;
 import ru.practicum.booking.model.State;
+import ru.practicum.exception.UnsupportedStatusException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface BookingService {
 
     BookingSearch findBooking(long userId, long bookingId);
 
-    List<BookingSearch> findListBooking(long userId, State state, int from, int size);
+    List<BookingSearch> findListBooking(long userId, State state, int from, int size) throws UnsupportedStatusException;
 
-    List<BookingSearch> findListOwnerBooking(long userId, State state, int from, int size);
+    List<BookingSearch> findListOwnerBooking(long userId, State state, int from, int size) throws UnsupportedStatusException;
 }

@@ -1,6 +1,7 @@
 package ru.practicum.booking.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,7 @@ public class BookingController {
         return BookingMapper.fromBookingSearchToBookingDto(newBooking);
     }
 
+    @SneakyThrows
     @GetMapping
     public List<BookingDto> findListBooking(@RequestHeader(HEADER) final long userId,
                                             @RequestParam(defaultValue = "ALL") State state,
@@ -58,6 +60,7 @@ public class BookingController {
         return BookingMapper.fromBookingSearchToDtoList(listBooking);
     }
 
+    @SneakyThrows
     @GetMapping("/owner")
     public List<BookingDto> findOwnerBooking(@RequestHeader(HEADER) final long userId,
                                              @RequestParam(defaultValue = "ALL") State state,

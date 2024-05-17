@@ -13,6 +13,7 @@ import ru.practicum.booking.model.State;
 import ru.practicum.booking.model.Status;
 import ru.practicum.exception.AvailableException;
 import ru.practicum.exception.EntityNotFoundException;
+import ru.practicum.exception.UnsupportedStatusException;
 import ru.practicum.item.dao.ItemRepository;
 import ru.practicum.item.model.Item;
 import ru.practicum.user.dao.UserRepository;
@@ -74,7 +75,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingSearch> findListBooking(long userId, State state, int from, int size) {
+    public List<BookingSearch> findListBooking(long userId, State state, int from, int size) throws UnsupportedStatusException {
         userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         Pageable pageable = PageRequest.of(from > 0 ? from / size : 0, size, Sort.by("start").descending());
         switch (state) {
@@ -91,12 +92,12 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByBookerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
+                throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 
     @Override
-    public List<BookingSearch> findListOwnerBooking(long userId, State state, int from, int size) {
+    public List<BookingSearch> findListOwnerBooking(long userId, State state, int from, int size) throws UnsupportedStatusException {
         userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         Pageable pageable = PageRequest.of(from > 0 ? from / size : 0, size, Sort.by("start").descending());
         switch (state) {
@@ -113,7 +114,7 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByItemOwnerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
+                throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 }
