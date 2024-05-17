@@ -100,8 +100,9 @@
                     <configuration>
                         <output>file</output>
                         <excludes>
-                            <exclude>ru/practicum/shareit/**/*Dto*.*</exclude>
-                            <exclude>ru/practicum/shareit/**/*Mapper*.*</exclude>
+                            <exclude>ru/practicum/**/*Dto*.*</exclude>
+                            <exclude>ru/practicum/**/*Mapper*.*</exclude>
+                            <exclude>ru/practicum/**/*Exception*.*</exclude>
                         </excludes>
                     </configuration>
                     <executions>
