@@ -36,10 +36,10 @@ public class HandlerException {
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class,
             UnsupportedStatusException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(reason = "Unknown state: UNSUPPORTED_STATUS", code=HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse statusError(final Throwable e) {
         log.debug("Get status 500 Internal Server Error {}", e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
+        return new ErrorResponse("Unknown state: UNSUPPORTED_STATUS");
     }
 
     @ExceptionHandler
