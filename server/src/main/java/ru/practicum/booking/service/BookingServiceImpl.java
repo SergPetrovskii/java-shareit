@@ -92,7 +92,7 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByBookerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
+                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 
@@ -114,7 +114,7 @@ public class BookingServiceImpl implements BookingService {
             case ALL:
                 return bookingRepository.findAllByItemOwnerIdOrderByStartDesc(userId, pageable);
             default:
-                throw new UnsupportedStatusException("Unknown state: UNSUPPORTED_STATUS");
+                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 }

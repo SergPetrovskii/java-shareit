@@ -76,7 +76,7 @@ public class BookingControllerTest {
 
         when(bookingClient.findListBooking(userId, State.ALL, 0, 10)).thenReturn(objectResponseEntity);
 
-        ResponseEntity<Object> listBooking = bookingController.findListBooking(userId, "ALL", 0, 10);
+        ResponseEntity<Object> listBooking = bookingController.findListBooking(userId, State.ALL, 0, 10);
 
         assertEquals(objectResponseEntity, listBooking);
     }
@@ -87,7 +87,7 @@ public class BookingControllerTest {
 
         when(bookingClient.findOwnerBooking(userId, State.ALL, 0, 10)).thenReturn(objectResponseEntity);
 
-        ResponseEntity<Object> ownerBooking = bookingController.findOwnerBooking(userId, "ALL", 0, 10);
+        ResponseEntity<Object> ownerBooking = bookingController.findOwnerBooking(userId, State.ALL, 0, 10);
 
         assertEquals(objectResponseEntity, ownerBooking);
     }

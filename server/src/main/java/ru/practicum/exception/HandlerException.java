@@ -1,6 +1,7 @@
 package ru.practicum.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
@@ -35,8 +36,8 @@ public class HandlerException {
     }
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class,
-            UnsupportedStatusException.class})
-    @ResponseStatus(reason = "Unknown state: UNSUPPORTED_STATUS", code=HttpStatus.INTERNAL_SERVER_ERROR)
+            ConversionFailedException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse statusError(final Throwable e) {
         log.debug("Get status 500 Internal Server Error {}", e.getMessage(), e);
         return new ErrorResponse("Unknown state: UNSUPPORTED_STATUS");

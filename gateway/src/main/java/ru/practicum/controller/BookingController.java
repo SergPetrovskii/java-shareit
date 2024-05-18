@@ -44,21 +44,17 @@ public class BookingController {
 
     @GetMapping
     public ResponseEntity<Object> findListBooking(@RequestHeader(HEADER) @Min(0) final long userId,
-                                                  @RequestParam(defaultValue = "ALL") String stateParam,
+                                                  @RequestParam(defaultValue = "ALL") State state,
                                                   @RequestParam(defaultValue = "0") @Min(0) int from,
                                                   @RequestParam(defaultValue = "10") @Min(1) int size) {
-        State state = State.from(stateParam)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
         return bookingClient.findListBooking(userId, state, from, size);
     }
 
     @GetMapping("/owner")
     public ResponseEntity<Object> findOwnerBooking(@RequestHeader(HEADER) @Min(0) final long userId,
-                                                   @RequestParam(defaultValue = "ALL") String stateParam,
+                                                   @RequestParam(defaultValue = "ALL") State state,
                                                    @RequestParam(defaultValue = "0") @Min(0) int from,
                                                    @RequestParam(defaultValue = "10") @Min(1) int size) {
-        State state = State.from(stateParam)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
         return bookingClient.findOwnerBooking(userId, state, from, size);
     }
 
