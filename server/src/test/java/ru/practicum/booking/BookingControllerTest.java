@@ -94,7 +94,7 @@ public class BookingControllerTest {
 
         when(bookingService.findListBooking(userId, State.ALL, 0, 10)).thenReturn(List.of());
 
-        List<BookingDto> listBooking = bookingController.findListBooking(userId, State.ALL, 0, 10);
+        List<BookingDto> listBooking = bookingController.findListBooking(userId, "ALL", 0, 10);
         List<BookingDto> listBooking1 = List.of();
 
         assertEquals(listBooking, listBooking1);
@@ -107,7 +107,7 @@ public class BookingControllerTest {
 
         when(bookingService.findListOwnerBooking(userId, State.ALL, 0, 10)).thenReturn(List.of());
 
-        List<BookingDto> listBooking = bookingController.findOwnerBooking(userId, State.ALL, 0, 10);
+        List<BookingDto> listBooking = bookingController.findOwnerBooking(userId, "ALL", 0, 10);
         List<BookingDto> listBooking1 = List.of();
 
         assertEquals(listBooking, listBooking1);

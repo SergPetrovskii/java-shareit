@@ -19,26 +19,28 @@ public class ItemRequestController {
 
     private final ItemRequestClient itemRequestClient;
 
+    private static final String HEADER = "X-Sharer-User-Id";
+
     @PostMapping
-    public ResponseEntity<Object> addRequest(@RequestHeader("X-Sharer-User-Id") @Min(0) long userId,
+    public ResponseEntity<Object> addRequest(@RequestHeader(HEADER) @Min(0) long userId,
                                              @RequestBody @Valid ItemRequestDtoReceived requestDto) {
         return itemRequestClient.addRequest(userId, requestDto);
     }
 
     @GetMapping
-    public ResponseEntity<Object> findListRequestUser(@RequestHeader("X-Sharer-User-Id") @Min(0) long userId) {
+    public ResponseEntity<Object> findListRequestUser(@RequestHeader(HEADER) @Min(0) long userId) {
         return itemRequestClient.findListRequestUser(userId);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Object> findListRequest(@RequestHeader("X-Sharer-User-Id") @Min(0) long userId,
+    public ResponseEntity<Object> findListRequest(@RequestHeader(HEADER) @Min(0) long userId,
                                                   @Min(0) @RequestParam(defaultValue = "0") int from,
                                                   @Min(1) @RequestParam(defaultValue = "10") int size) {
         return itemRequestClient.findListRequest(userId, from, size);
     }
 
     @GetMapping("/{requestId}")
-    public ResponseEntity<Object> findItemRequest(@RequestHeader("X-Sharer-User-Id") @Min(0) long userId,
+    public ResponseEntity<Object> findItemRequest(@RequestHeader(HEADER) @Min(0) long userId,
                                                   @PathVariable("requestId") @Min(0) long requestId) {
 
         return itemRequestClient.findItemRequest(userId, requestId);

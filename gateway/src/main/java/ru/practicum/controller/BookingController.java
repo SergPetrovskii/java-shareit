@@ -21,27 +21,29 @@ public class BookingController {
 
     private final BookingClient bookingClient;
 
+    private static final String HEADER = "X-Sharer-User-Id";
+
     @PostMapping
-    public ResponseEntity<Object> postBooking(@RequestHeader("X-Sharer-User-Id") @Min(0) long userId,
+    public ResponseEntity<Object> postBooking(@RequestHeader(HEADER) @Min(0) long userId,
                                               @Validated(Marker.OnCreate.class) @RequestBody @Valid BookingDtoReceived booking) {
         return bookingClient.postBooking(userId, booking);
     }
 
     @PatchMapping("/{bookingId}")
-    public ResponseEntity<Object> approvedBooking(@RequestHeader("X-Sharer-User-Id") @Min(0) final long userId,
+    public ResponseEntity<Object> approvedBooking(@RequestHeader(HEADER) @Min(0) final long userId,
                                                   @PathVariable("bookingId") @Min(0) final long bookingId,
                                                   @RequestParam boolean approved) {
         return bookingClient.approvedBooking(userId, bookingId, approved);
     }
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<Object> findBooking(@RequestHeader("X-Sharer-User-Id") @Min(0) final long userId,
+    public ResponseEntity<Object> findBooking(@RequestHeader(HEADER) @Min(0) final long userId,
                                               @PathVariable("bookingId") @Min(0) final long bookingId) {
         return bookingClient.findBooking(userId, bookingId);
     }
 
     @GetMapping
-    public ResponseEntity<Object> findListBooking(@RequestHeader("X-Sharer-User-Id") @Min(0) final long userId,
+    public ResponseEntity<Object> findListBooking(@RequestHeader(HEADER) @Min(0) final long userId,
                                                   @RequestParam(defaultValue = "ALL") String stateParam,
                                                   @RequestParam(defaultValue = "0") @Min(0) int from,
                                                   @RequestParam(defaultValue = "10") @Min(1) int size) {
@@ -51,7 +53,7 @@ public class BookingController {
     }
 
     @GetMapping("/owner")
-    public ResponseEntity<Object> findOwnerBooking(@RequestHeader("X-Sharer-User-Id") @Min(0) final long userId,
+    public ResponseEntity<Object> findOwnerBooking(@RequestHeader(HEADER) @Min(0) final long userId,
                                                    @RequestParam(defaultValue = "ALL") String stateParam,
                                                    @RequestParam(defaultValue = "0") @Min(0) int from,
                                                    @RequestParam(defaultValue = "10") @Min(1) int size) {
