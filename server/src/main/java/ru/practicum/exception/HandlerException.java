@@ -46,6 +46,6 @@ public class HandlerException {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse internalServerError(final Throwable e) {
         log.debug("Get error 500 Internal Server Error {}", e.getMessage(), e);
-        return new ErrorResponse(e.getMessage());
+        return new ErrorResponse("Unknown state: UNSUPPORTED_STATUS");
     }
 }
