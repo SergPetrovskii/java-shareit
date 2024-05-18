@@ -15,6 +15,8 @@ import ru.practicum.booking.service.BookingService;
 
 import java.util.List;
 
+import static java.util.Arrays.stream;
+
 @Slf4j
 @RestController
 @RequestMapping(path = "/bookings")
@@ -52,11 +54,13 @@ public class BookingController {
     @SneakyThrows
     @GetMapping
     public List<BookingDto> findListBooking(@RequestHeader(HEADER) final long userId,
-                                            @RequestParam(defaultValue = "ALL") String stateParam,
+                                            @RequestParam(defaultValue = "ALL") State stateParam,
                                             @RequestParam(defaultValue = "0") int from,
                                             @RequestParam(defaultValue = "10") int size) {
-        State state = State.from(stateParam)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
+        State state = stream(State.values())
+                .filter(e -> e.equals(stateParam))
+                .findFirst()
+                .orElseThrow(() -> new UnsupportedOperationException("Unknown state: " + stateParam));
         List<BookingSearch> listBooking = bookingService.findListBooking(userId, state, from, size);
         log.info("GET request for findListBooking with state = " + state + " from user with id = " + userId);
         return BookingMapper.fromBookingSearchToDtoList(listBooking);
@@ -65,11 +69,13 @@ public class BookingController {
     @SneakyThrows
     @GetMapping("/owner")
     public List<BookingDto> findOwnerBooking(@RequestHeader(HEADER) final long userId,
-                                             @RequestParam(defaultValue = "ALL") String stateParam,
+                                             @RequestParam(defaultValue = "ALL") State stateParam,
                                              @RequestParam(defaultValue = "0") int from,
                                              @RequestParam(defaultValue = "10") int size) {
-        State state = State.from(stateParam)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
+        State state = stream(State.values())
+                .filter(e -> e.equals(stateParam))
+                .findFirst()
+                .orElseThrow(() -> new UnsupportedOperationException("Unknown state: " + stateParam));
         List<BookingSearch> listBooking = bookingService.findListOwnerBooking(userId, state, from, size);
         log.info("GET request for findOwnerBooking with state = " + state + " from user with id = " + userId);
         return BookingMapper.fromBookingSearchToDtoList(listBooking);
